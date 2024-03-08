@@ -335,6 +335,7 @@ namespace Oddworm.Framework
                 // stuff in the frame debugger mesh preview window for example.
                 var validCamera = false;
                 if (camera.cameraType == CameraType.Game && camera.CompareTag("MainCamera")) validCamera = true;
+                if (camera.cameraType == CameraType.Game && CompareTagSafe(camera, "DebugCamera")) validCamera = true;
                 if (camera.cameraType == CameraType.SceneView) validCamera = true;
                 if (!validCamera)
                     return;
@@ -363,6 +364,18 @@ namespace Oddworm.Framework
                 UnityEngine.Profiling.Profiler.BeginSample("DbgDraw.DrawLines");
                 DrawLines(deltaTime);
                 UnityEngine.Profiling.Profiler.EndSample();
+            }
+
+            bool CompareTagSafe(Component component, string tag)
+            {
+                try
+                {
+                    return component.CompareTag(tag);
+                }
+                catch
+                {
+                    return false;
+                }
             }
 
             void ResetMaterialColors()
