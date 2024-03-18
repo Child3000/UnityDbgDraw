@@ -334,7 +334,7 @@ namespace Oddworm.Framework
                 // Render only in game or scene view. If we don't to this, we also render
                 // stuff in the frame debugger mesh preview window for example.
                 var validCamera = false;
-                if (camera.cameraType == CameraType.Game && camera.CompareTag("MainCamera")) validCamera = true;
+                // if (camera.cameraType == CameraType.Game && camera.CompareTag("MainCamera")) validCamera = true;
                 if (camera.cameraType == CameraType.Game && CompareTagSafe(camera, "DebugCamera")) validCamera = true;
                 if (camera.cameraType == CameraType.SceneView) validCamera = true;
                 if (!validCamera)
