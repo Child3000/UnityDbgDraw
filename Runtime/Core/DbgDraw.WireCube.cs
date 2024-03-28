@@ -13,7 +13,7 @@ namespace Oddworm.Framework
 
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
         [System.Diagnostics.Conditional("DEVELOPMENT_BUILD")]
-        public static void WireCube(Vector3 position, Quaternion rotation, Vector3 scale, float extents, Color color, float duration = 0, bool depthTest = true)
+        public static void WireCube(Vector3 position, Quaternion rotation, Vector3 scale, Color color, float duration = 0, bool depthTest = true)
         {
             MeshJob job;
             if (!TryAllocMeshJob(out job, duration, depthTest, UnityEngine.Rendering.CullMode.Off, true))
@@ -21,7 +21,7 @@ namespace Oddworm.Framework
 
             if (s_WireCubeMesh == null)
             {
-                s_WireCubeMesh = CreateWireCubeMesh(extents);
+                s_WireCubeMesh = CreateWireCubeMesh();
                 ReleaseOnDestroy(s_WireCubeMesh);
             }
 
@@ -32,14 +32,14 @@ namespace Oddworm.Framework
             job.Submit();
         }
 
-        static Mesh CreateWireCubeMesh(float extents)
+        static Mesh CreateWireCubeMesh()
         {
             var mesh = new Mesh();
             mesh.name = "DbgDraw-WireCube-Mesh";
 
             var vertices = new List<Vector3>(24);
 
-            var s = extents;
+            var s = 1.0f * 0.5f;
             vertices.Add(new Vector3(-s, -s, -s)); // bottom near left
             vertices.Add(new Vector3(-s, -s, +s)); // bottom far left
             vertices.Add(new Vector3(-s, -s, +s)); // bottom far left
