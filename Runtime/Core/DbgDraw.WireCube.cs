@@ -13,7 +13,7 @@ namespace Oddworm.Framework
 
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
         [System.Diagnostics.Conditional("DEVELOPMENT_BUILD")]
-        public static void WireCube(Vector3 position, Quaternion rotation, Vector3 scale, float extents, Color color, float duration = 0, bool depthTest = true)
+        public static void WireCube(Vector3 position, Quaternion rotation, Vector3 scale, Vector3 extents, Color color, float duration = 0, bool depthTest = true)
         {
             MeshJob job;
             if (!TryAllocMeshJob(out job, duration, depthTest, UnityEngine.Rendering.CullMode.Off, true))
@@ -32,7 +32,7 @@ namespace Oddworm.Framework
             job.Submit();
         }
 
-        static Mesh CreateWireCubeMesh(float extents)
+        static Mesh CreateWireCubeMesh(Vector3 extents)
         {
             var mesh = new Mesh();
             mesh.name = "DbgDraw-WireCube-Mesh";
@@ -40,33 +40,33 @@ namespace Oddworm.Framework
             var vertices = new List<Vector3>(24);
 
             var s = extents;
-            vertices.Add(new Vector3(-s, -s, -s)); // bottom near left
-            vertices.Add(new Vector3(-s, -s, +s)); // bottom far left
-            vertices.Add(new Vector3(-s, -s, +s)); // bottom far left
-            vertices.Add(new Vector3(+s, -s, +s)); // bottom far right
-            vertices.Add(new Vector3(+s, -s, +s)); // bottom far right
-            vertices.Add(new Vector3(+s, -s, -s)); // bottom near right
-            vertices.Add(new Vector3(+s, -s, -s)); // bottom near right
-            vertices.Add(new Vector3(-s, -s, -s)); // bottom near left
+            vertices.Add(new Vector3(-s.x, -s.y, -s.z)); // bottom near left
+            vertices.Add(new Vector3(-s.x, -s.y, +s.z)); // bottom far left
+            vertices.Add(new Vector3(-s.x, -s.y, +s.z)); // bottom far left
+            vertices.Add(new Vector3(+s.x, -s.y, +s.z)); // bottom far right
+            vertices.Add(new Vector3(+s.x, -s.y, +s.z)); // bottom far right
+            vertices.Add(new Vector3(+s.x, -s.y, -s.z)); // bottom near right
+            vertices.Add(new Vector3(+s.x, -s.y, -s.z)); // bottom near right
+            vertices.Add(new Vector3(-s.x, -s.y, -s.z)); // bottom near left
 
-            vertices.Add(new Vector3(-s, +s, -s)); // top near left
-            vertices.Add(new Vector3(-s, +s, +s)); // top far left
-            vertices.Add(new Vector3(-s, +s, +s)); // top far left
-            vertices.Add(new Vector3(+s, +s, +s)); // top far right
-            vertices.Add(new Vector3(+s, +s, +s)); // top far right
-            vertices.Add(new Vector3(+s, +s, -s)); // top near right
-            vertices.Add(new Vector3(+s, +s, -s)); // top near right
-            vertices.Add(new Vector3(-s, +s, -s)); // top near left
+            vertices.Add(new Vector3(-s.x, +s.y, -s)); // top near left
+            vertices.Add(new Vector3(-s.x, +s.y, +s)); // top far left
+            vertices.Add(new Vector3(-s.x, +s.y, +s)); // top far left
+            vertices.Add(new Vector3(+s.x, +s.y, +s)); // top far right
+            vertices.Add(new Vector3(+s.x, +s.y, +s)); // top far right
+            vertices.Add(new Vector3(+s.x, +s.y, -s)); // top near right
+            vertices.Add(new Vector3(+s.x, +s.y, -s)); // top near right
+            vertices.Add(new Vector3(-s.x, +s.y, -s)); // top near left
 
-            vertices.Add(new Vector3(+s, +s, +s)); // top far right
-            vertices.Add(new Vector3(+s, -s, +s)); // bottom far right
-            vertices.Add(new Vector3(+s, +s, -s)); // top near right
-            vertices.Add(new Vector3(+s, -s, -s)); // bottom near right
+            vertices.Add(new Vector3(+s.x +s.y, +s.z)); // top far right
+            vertices.Add(new Vector3(+s.x -s.y, +s.z)); // bottom far right
+            vertices.Add(new Vector3(+s.x +s.y, -s.z)); // top near right
+            vertices.Add(new Vector3(+s.x -s.y, -s.z)); // bottom near right
 
-            vertices.Add(new Vector3(-s, +s, +s)); // top far left
-            vertices.Add(new Vector3(-s, -s, +s)); // bottom far left
-            vertices.Add(new Vector3(-s, +s, -s)); // top near left
-            vertices.Add(new Vector3(-s, -s, -s)); // bottom near left
+            vertices.Add(new Vector3(-s.x, +s.y +s.z); // top far left
+            vertices.Add(new Vector3(-s.x, -s.y +s.z); // bottom far left
+            vertices.Add(new Vector3(-s.x, +s.y -s.z); // top near left
+            vertices.Add(new Vector3(-s.x, -s.y -s.z); // bottom near left
 
             mesh.SetVertices(vertices);
 
